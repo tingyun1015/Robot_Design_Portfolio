@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DP2 · Maya — Brand Chatbot</title>
+<link rel="stylesheet" href="assets/site.css" />
+<style>
+  .dp-hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(30px,5vw,80px); align-items: center; padding: clamp(40px,7vh,90px) 0 clamp(30px,5vh,60px); }
+  .dp-hero .h-num { font-family: var(--serif); font-style: italic; font-size: clamp(60px,11vw,150px); line-height: .8; color: var(--accent); }
+  .dp-hero h1 { font-size: clamp(48px,8vw,116px); font-weight: 600; letter-spacing: -.04em; line-height: .9; margin: 18px 0 0; }
+  .dp-hero .sub { font-size: clamp(17px,1.6vw,22px); color: var(--ink-soft); max-width: 46ch; margin-top: 24px; text-wrap: pretty; }
+  .dp-hero .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; align-items: center; }
+  .dp-hero .cta-note { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--ink-faint); }
+  .dp-hero .h-fig {
+    position: relative; aspect-ratio: 1/1; border-radius: 6px; overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 42%, oklch(0.62 0.18 350 / 0.18), transparent 62%),
+      var(--paper-2);
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .dp-hero .h-fig::before { content:''; position:absolute; inset:0; background-image: repeating-linear-gradient(45deg, oklch(0.18 0.012 264 / 0.04) 0 11px, transparent 11px 22px); }
+  .dp-hero .h-fig img { position: relative; width: 78%; height: 92%; object-fit: contain; object-position: bottom; filter: drop-shadow(0 24px 40px oklch(0.4 0.12 350 / 0.22)); }
+
+  section.blk { padding: clamp(46px,8vh,110px) 0 0; }
+  .blk-grid { display: grid; grid-template-columns: 80px 1fr; gap: 24px; }
+  .blk-grid .bn { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: .08em; padding-top: 7px; }
+  .blk-grid .bh { font-size: clamp(28px,3.6vw,52px); font-weight: 500; letter-spacing: -.025em; line-height: 1.02; }
+  .blk-grid .bh .serif-it { font-size: 1.05em; }
+  .blk-lead { grid-column: 2; margin-top: 16px; font-size: clamp(16px,1.4vw,19px); color: var(--ink-soft); max-width: 58ch; text-wrap: pretty; }
+  .blk-body { margin-top: clamp(28px,4vh,56px); }
+
+  /* design process — define / design / refine */
+  .process { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 4px; overflow: hidden; }
+  .process .p { background: var(--paper); padding: clamp(24px,2.6vw,38px); display: flex; flex-direction: column; gap: 16px; }
+  .process .p .pk { display: flex; align-items: baseline; gap: 12px; }
+  .process .p .pk .pn { font-family: var(--serif); font-style: italic; font-size: 34px; color: var(--accent); line-height: 1; }
+  .process .p .pk h4 { font-size: 22px; font-weight: 600; letter-spacing: -.01em; }
+  .process .p p { font-size: 15px; color: var(--ink-soft); line-height: 1.55; }
+  @media(max-width:820px){ .process{ grid-template-columns:1fr; } .dp-hero{ grid-template-columns:1fr; } }
+
+  /* character spec quad */
+  .quad { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 4px; overflow: hidden; }
+  .quad .cell { background: var(--paper); padding: clamp(22px,2.3vw,32px); }
+  .quad .cell .label { display:block; color: var(--accent); margin-bottom: 16px; }
+  .quad .cell .basic { font-size: 15.5px; color: var(--ink-soft); line-height: 1.55; }
+  .quad .cell ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .quad .cell li { font-size: 15px; color: var(--ink-soft); padding-left: 17px; position: relative; line-height: 1.4; }
+  .quad .cell li::before { content:''; position:absolute; left:0; top:8px; width:6px; height:6px; border-radius:50%; background:var(--accent); opacity:.55; }
+  @media(max-width:900px){ .quad{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:540px){ .quad{ grid-template-columns:1fr; } }
+
+  /* chat demo */
+  .chat-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px,3vw,46px); align-items: start; }
+  @media(max-width:860px){ .chat-wrap{ grid-template-columns:1fr; } }
+  .chat-side .label { color: var(--accent); }
+  .chat-side h3 { font-size: clamp(22px,2.4vw,32px); font-weight: 500; letter-spacing: -.02em; margin: 14px 0 16px; line-height: 1.1; }
+  .chat-side p { font-size: 16px; color: var(--ink-soft); max-width: 44ch; line-height: 1.6; }
+  .chat-side .btn { margin-top: 26px; }
+  .chat {
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card);
+    box-shadow: 0 24px 50px oklch(0.4 0.05 350 / 0.10); max-width: 480px; margin-left: auto; width: 100%;
+  }
+  .chat .chead { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line-soft); background: var(--paper); }
+  .chat .chead .av { width: 38px; height: 38px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 50% 40%, oklch(0.62 0.18 350 / .25), var(--paper-2)); flex: 0 0 auto; }
+  .chat .chead .av img { width: 100%; height: 100%; object-fit: cover; object-position: top; transform: scale(1.5) translateY(10%); }
+  .chat .chead .who b { font-size: 15px; }
+  .chat .chead .who .st { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+  .chat .chead .who .st::before { content:''; width:6px; height:6px; border-radius:50%; background: oklch(0.7 0.16 150); }
+  .chat .body { padding: 22px 20px; display: flex; flex-direction: column; gap: 14px; background: var(--paper); }
+  .msg { max-width: 86%; font-size: 14.5px; line-height: 1.5; padding: 13px 16px; border-radius: 16px; }
+  .msg.bot { align-self: flex-start; background: var(--card); border: 1px solid var(--line-soft); border-bottom-left-radius: 5px; color: var(--ink); }
+  .msg.me { align-self: flex-end; background: var(--ink); color: var(--paper); border-bottom-right-radius: 5px; }
+  .msg.bot b { font-weight: 600; }
+  .msg.bot ul { margin: 8px 0 2px; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+  .msg.bot .ttl { color: var(--accent); font-weight: 600; }
+  .chat .cfoot { padding: 12px 16px; border-top: 1px solid var(--line-soft); background: var(--card); display: flex; align-items: center; gap: 10px; }
+  .chat .cfoot .inp { flex: 1; font-family: var(--grot); font-size: 13px; color: var(--ink-faint); }
+  .chat .cfoot .send { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+
+  .cta-band { margin-top: clamp(50px,8vh,100px); padding: clamp(40px,7vh,80px) clamp(28px,5vw,70px); border-radius: 8px; background: var(--ink); color: var(--paper); display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; }
+  .cta-band .ctitle { font-size: clamp(26px,3.2vw,46px); font-weight: 500; letter-spacing: -.02em; line-height: 1.05; max-width: 16ch; }
+  .cta-band .ctitle .serif-it { color: oklch(0.78 0.13 350); }
+  .cta-band .btn { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+  .cta-band .btn:hover { background: oklch(0.78 0.13 350); border-color: oklch(0.78 0.13 350); color: var(--ink); }
+  .cta-band .cnote { font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; color: oklch(0.7 0.02 350); margin-top: 12px; }
+</style>
+</head>
+<body class="dp2" data-screen-label="DP2 — Maya / Brand Chatbot">
+
+  <nav class="nav">
+    <a class="brand" href="index.html"><b>Robot&amp;AI</b> <span class="full">· Interaction Design</span></a>
+    <div class="links">
+      <a href="index.html">Index</a>
+      <a href="dp1.html">01</a>
+      <a href="dp2.html" class="on">02</a>
+      <a href="dp3.html">03</a>
+      <a href="team.html">Team</a>
+      <a href="prototype.html">Prototyping</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <!-- HERO -->
+    <header class="dp-hero">
+      <div>
+        <div class="eyebrow reveal"><span class="dot"></span> DP 02 · Brand Chatbot</div>
+        <div class="h-num reveal">02</div>
+        <h1 class="reveal">Maya</h1>
+        <p class="sub reveal">Your Disneyland guide — a fairy companion chatbot that helps visitors plan and navigate their ideal park experience, before and during the visit.</p>
+        <div class="cta-row reveal">
+          <a class="btn" href="#" data-trychat>Try Maya <span class="arr">→</span></a>
+          <span class="cta-note">▸ Set the live link in dp2.html (<b>data-trychat</b>)</span>
+        </div>
+      </div>
+      <div class="h-fig reveal">
+        <img src="assets/img/dp2-maya.png" alt="Maya — the fairy park guide" />
+      </div>
+    </header>
+
+    <!-- 01 DESIGN PROCESS -->
+    <section class="blk">
+      <div class="blk-grid">
+        <div class="bn reveal">01</div>
+        <div>
+          <div class="bh reveal">Design <span class="serif-it">Process</span></div>
+          <p class="blk-lead reveal">From a clear visitor problem to a consistent guiding personality — defined, designed, and refined across real park scenarios.</p>
+        </div>
+      </div>
+      <div class="blk-body process">
+        <div class="p reveal" data-reveal-group="proc">
+          <div class="pk"><span class="pn">01</span><h4>Define</h4></div>
+          <p>Identified the challenge visitors face when planning a one-day Disney park trip, and explored how an AI assistant could support decision-making before and during the visit.</p>
+        </div>
+        <div class="p reveal" data-reveal-group="proc">
+          <div class="pk"><span class="pn">02</span><h4>Design</h4></div>
+          <p>Designed Maya as a fairy guide character that combines the friendliness and professionalism of a Disney Cast Member with a sense of companionship.</p>
+        </div>
+        <div class="p reveal" data-reveal-group="proc">
+          <div class="pk"><span class="pn">03</span><h4>Refine</h4></div>
+          <p>Tested Maya across various visitor scenarios and continuously refined her responses, personality, and conversation scope for a consistent guiding experience.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 CHARACTER -->
+    <section class="blk">
+      <div class="blk-grid">
+        <div class="bn reveal">02</div>
+        <div>
+          <div class="bh reveal">The Character: <span class="serif-it">Maya</span></div>
+          <p class="blk-lead reveal">A genderless fairy of unknown age — a warm, magical companion who helps visitors explore the park.</p>
+        </div>
+      </div>
+      <div class="blk-body quad">
+        <div class="cell reveal" data-reveal-group="char">
+          <span class="label">Basic Information</span>
+          <p class="basic">Maya — fairy (no gender), age unknown. A friendly Disney companion who helps visitors explore the park.</p>
+        </div>
+        <div class="cell reveal" data-reveal-group="char">
+          <span class="label">Personality</span>
+          <ul><li>Friendly and lively</li><li>Attentive</li><li>Patient</li></ul>
+        </div>
+        <div class="cell reveal" data-reveal-group="char">
+          <span class="label">Tone of Voice</span>
+          <ul><li>Warm and welcoming</li><li>Clear and easy to understand</li><li>Magical yet professional</li></ul>
+        </div>
+        <div class="cell reveal" data-reveal-group="char">
+          <span class="label">Core Function</span>
+          <ul><li>Park introduction</li><li>Attraction recommendations</li><li>Trip planning</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 OUR CHATBOT -->
+    <section class="blk">
+      <div class="blk-grid">
+        <div class="bn reveal">03</div>
+        <div>
+          <div class="bh reveal">Our <span class="serif-it">Chatbot</span></div>
+          <p class="blk-lead reveal">Maya greets every visitor, then answers practical park questions in her signature warm, clear voice.</p>
+        </div>
+      </div>
+      <div class="blk-body chat-wrap">
+        <div class="chat-side reveal">
+          <span class="label">Introduction &amp; Example Query</span>
+          <h3>She opens with what she can do — then gets practical.</h3>
+          <p>Ask Maya anything from “It's my first time visiting” to “How should I use Premier Access?” and she'll guide you through it. Try the live version yourself.</p>
+          <a class="btn" href="#" data-trychat>Try Maya <span class="arr">→</span></a>
+        </div>
+        <div class="chat reveal">
+          <div class="chead">
+            <div class="av"><img src="assets/img/dp2-maya.png" alt="Maya" /></div>
+            <div class="who"><b>Maya</b><div class="st">Tokyo Disneyland Guide</div></div>
+          </div>
+          <div class="body">
+            <div class="msg me">Hi!</div>
+            <div class="msg bot">
+              Hi! I'm <b>Maya</b>, your Tokyo Disneyland guide ✨ I can help you:
+              <ul>
+                <li>Plan your Disney day</li>
+                <li>Recommend the best attractions</li>
+                <li>Avoid long queues and crowds</li>
+                <li>Understand tickets, the app &amp; Premier Access</li>
+              </ul>
+            </div>
+            <div class="msg me">How should I use Premier Access?</div>
+            <div class="msg bot">
+              <span class="ttl">Disney Premier Access (DPA)</span> is Tokyo Disney Resort's paid skip-the-line service for select attractions and shows.
+              <ul>
+                <li>Enter the park first</li>
+                <li>Open the Tokyo Disney Resort App → My Plan</li>
+                <li>Choose an attraction &amp; return time</li>
+                <li>Return at your assigned time</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cfoot">
+            <span class="inp">Ask Maya about your park day…</span>
+            <span class="send">↑</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA band -->
+      <div class="cta-band reveal">
+        <div>
+          <div class="ctitle">Plan your park day with <span class="serif-it">Maya.</span></div>
+          <div class="cnote">▸ Replace “#” in dp2.html with your live chatbot link.</div>
+        </div>
+        <a class="btn" href="#" data-trychat>Launch the chatbot <span class="arr">→</span></a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- PAGER -->
+  <nav class="pager">
+    <a class="prev" href="dp1.html">
+      <span class="pl">← Prev · DP 01</span>
+      <span class="pt">Robot Idol</span>
+    </a>
+    <a class="next" href="dp3.html">
+      <span class="pl">Next · DP 03 →</span>
+      <span class="pt">Concert Robot</span>
+    </a>
+  </nav>
+
+  <footer class="foot">
+    <div class="fbig">Maya</div>
+    <div class="fmeta">Robot &amp; AI Interaction Design<br />NCCU · Group 8 · <span data-year>2026</span></div>
+  </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  /* Point every [data-trychat] at your live chatbot URL here, or set href in markup. */
+  var CHATBOT_URL = ''; // e.g. 'https://chatgpt.com/g/your-maya-gpt'
+  if (CHATBOT_URL) {
+    document.querySelectorAll('[data-trychat]').forEach(function (a) {
+      a.href = CHATBOT_URL; a.target = '_blank'; a.rel = 'noopener';
+    });
+  }
+</script>
+<script src="assets/site.js"></script>
+</body>
+</html>
