@@ -38,21 +38,32 @@
   .concept-pull .q { font-family: var(--serif); font-size: clamp(24px,3vw,42px); line-height: 1.18; letter-spacing: -.01em; }
 
   /* components */
+  .comp-split { display: grid; grid-template-columns: clamp(180px, 40vw, 420px) 1fr; gap: clamp(16px, 4vw, 56px); align-items: stretch; min-height: 600px; }
+  @media(max-width: 820px) { 
+    .comp-split { min-height: 400px; gap: 16px; } 
+    .comp-grid .c { padding: 16px; }
+    .comp-grid .c h4 { font-size: 16px; }
+    .comp-grid .c p { font-size: 13px; }
+  }
+
   .comp-img .frame { aspect-ratio: 3/2; border-radius: 5px; }
   .comp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 4px; overflow: hidden; margin-top: clamp(16px,2vw,24px); }
-  .comp-grid .c { background: var(--paper); padding: clamp(22px,2.4vw,32px); display: flex; flex-direction: column; gap: 14px; }
+  .comp-grid .c { background: var(--paper); padding: clamp(22px,2.4vw,32px); display: flex; flex-direction: column; gap: 5px; }
   .comp-grid .c .ci { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
   .comp-grid .c .label { color: var(--accent); }
   .comp-grid .c .cnum { font-family: var(--serif); font-style: italic; font-size: 26px; color: var(--accent); }
   .comp-grid .c h4 { font-size: 19px; font-weight: 600; letter-spacing: -.01em; }
   .comp-grid .c p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
-  @media(max-width:760px){ .comp-grid{ grid-template-columns:1fr; } }
 
   /* scenario gallery */
-  .gallery { display: grid; grid-template-columns: repeat(4,1fr); gap: clamp(10px,1.4vw,18px); }
-  .gallery .frame { border-radius: 4px; }
-  .gallery .frame.big { grid-column: span 2; grid-row: span 2; aspect-ratio: 1/1; }
-  @media(max-width:760px){ .gallery{ grid-template-columns:1fr 1fr; } .gallery .frame.big{ grid-column:span 2; aspect-ratio:16/10; grid-row:auto; } }
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 48px); }
+  .gallery .g-item { display: flex; flex-direction: column; gap: 12px; }
+  .gallery .g-item.big { grid-column: span 2; }
+  .gallery .frame { border-radius: 6px; overflow: hidden; background: var(--line-faint); }
+  .gallery .frame img { width: 100%; display: block; object-fit: cover; }
+  .gallery .cap { display: flex; align-items: flex-start; gap: 8px; font-size: clamp(14px, 1.2vw, 15px); color: var(--ink-soft); line-height: 1.55; text-wrap: pretty; }
+  .gallery .cap::before { content: ""; display: block; width: 0; height: 0; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 6px solid var(--accent); margin-top: 0.45em; flex-shrink: 0; }
+  @media(max-width:760px){ .gallery{ grid-template-columns:1fr; } .gallery .g-item.big{ grid-column:span 1; } }
 
   .vsection .vnote { margin-top: 16px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--ink-faint); }
 </style>
@@ -79,7 +90,7 @@
         <div>
           <div class="eyebrow reveal"><span class="dot"></span> DP 03 · Concert Robot</div>
           <div class="h-num reveal">03</div>
-          <h1 class="reveal">Concert Robot</h1>
+          <h1 class="reveal" id="intro-video">Concert Robot</h1>
         </div>
         <div class="h-right">
           <p class="sub reveal">An interactive concert-photography robot — a seat-bound proxy that lets remote fans be present in the crowd.</p>
@@ -90,7 +101,7 @@
           </div>
         </div>
       </div>
-      <div class="h-band reveal">
+      <div class="h-band reveal"  data-video>
         <div class="video-slot" data-video>
           <video class="vposter" src="assets/media/dp3-intro.mp4"></video>
           <div class="vover">
@@ -103,63 +114,92 @@
 
     <!-- 01 BACKGROUND -->
     <section class="blk">
-      <div class="blk-grid">
-        <div class="bn reveal">01</div>
-        <div>
-          <div class="bh reveal">Background</div>
-          <p class="blk-lead reveal">Why remote fans still feel left out — and where a physical proxy could change that.</p>
+      <div class="blk-body" style="margin-top: clamp(60px, 8vh, 100px); text-align: center; max-width: 75ch; margin-left: auto; margin-right: auto; padding-bottom: 20px;">
+        <div class="reveal">
+          <div style="width: 40px; height: 2px; background: var(--accent); margin: 0 auto 32px auto;"></div>
+          <p style="font-size: clamp(20px,2vw,28px); color: var(--ink); line-height: 1.4; text-wrap: balance; font-weight: 400;">Many fans cannot attend concerts due to distance, time, or ticket limitations, and can only watch through livestreams or videos.</p>
+          <p style="font-size: clamp(16px,1.4vw,19px); color: var(--ink-soft); line-height: 1.6; text-wrap: pretty; margin-top:24px;">However, current remote viewing experiences are mostly one-way — lacking interaction and participation, making it difficult for fans to <span style="color: var(--accent); font-weight: 600;">feel truly present.</span></p>
+          
+
+          <div style="width: 40px; height: 2px; background: var(--accent); margin: 32px auto 0 auto;"></div>
         </div>
-      </div>
-      <div class="blk-body concept-pull reveal">
-        <div class="q">Many fans cannot attend concerts due to distance, time, or ticket limitations, and can only watch through livestreams or videos.</div>
-        <div class="q">However, current remote viewing experiences are mostly one-way — lacking interaction and participation, making it difficult for fans to feel truly present.</p>
       </div>
     </section>
 
-    <!-- 02 DESIGN CONCEPT -->
+    <!-- 02 COMPONENTS -->
     <section class="blk">
+      <!-- Part 1: Design Concept -->
       <div class="blk-grid">
-        <div class="bn reveal">02</div>
+        <div class="bn reveal">01</div>
         <div>
           <div class="bh reveal">Design <span class="serif-it">Concept</span></div>
-          <p class="blk-lead reveal">A half-body robot fixed to a seat allows remote fans to interact and communicate with on-site audiences through the robot proxy.</p>
+          <p class="blk-lead reveal" style="max-width: 75ch; margin-top: 16px;">To bridge the gap of remote viewing, we designed CATTY — a telepresence robotic proxy that gives remote fans a physical seat at the concert.</p>
         </div>
       </div>
-      <div class="blk-body reveal">
-        <div class="video-slot" data-video>
-          <video class="vposter" src="assets/media/dp3-demo.mp4"></video>
-          <div class="vover">
-            <div class="play"></div>
-            <div class="vcap">Prototype DEMO</div>
+
+      <div class="blk-body" style="margin-top: clamp(40px, 6vh, 80px); margin-bottom: 32px;">
+        <div class="reveal">
+          <h4 style="font-size: clamp(24px, 3vw, 32px); font-weight: 500; margin-bottom: 12px; color: var(--ink);">The Remote Audience Proxy</h4>
+          <p style="font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-soft); line-height: 1.6; max-width: 80ch;">Designed as a half-body robot fixed to a concert seat, CATTY acts as a two-way emotional bridge. It immerses the remote fan in the live atmosphere, while allowing them to communicate and interact directly with the on-site audience and performers.</p>
+        </div>
+        <div class="reveal" style="margin-top: 32px; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(16px, 2vw, 32px); max-width: 80ch;">
+          <div style="border-radius: 6px; overflow: hidden; background: var(--line-faint); box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+            <img src="assets/img/dp3-scn-1.png" alt="Concept scenario 1" style="width: 100%; display: block;" />
+          </div>
+          <div style="border-radius: 6px; overflow: hidden; background: var(--line-faint); box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+            <img src="assets/img/dp3-scn-2.png" alt="Concept scenario 2" style="width: 100%; display: block;" />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Part 2: Key Components -->
+      <div class="blk-body" style="margin-top: clamp(60px, 8vh, 100px); margin-bottom: 32px;">
+        <div class="reveal">
+          <h4 style="font-size: clamp(24px, 3vw, 32px); font-weight: 500; margin-bottom: 12px; color: var(--ink);">Key Components</h4>
+          <p style="font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-soft); line-height: 1.6; max-width: 80ch;">Three core parts turn an empty seat into a two-way window between the remote fan and the live crowd.</p>
+        </div>
+      </div>
+      
+      <div class="blk-body comp-split reveal" style="margin-top: 0;">
+        <div class="frame" style="position: relative;">
+          <img src="assets/img/dp3-concept.png" alt="Concert robot" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
+        </div>
+        <div class="comp-grid" style="display: flex; flex-direction: column; margin-top: 0; height: 100%;">
+          <div class="c" style="flex: 1; justify-content: center;">
+            <div class="ci"><span class="label">Screen</span><span class="cnum">01</span></div>
+            <h4>Viewer Face &amp; Emotion Display</h4>
+            <p>Shows the viewer's face and real-time emotional expressions, and can display remote fans' cheering messages live.</p>
+          </div>
+          <div class="c" style="flex: 1; justify-content: center;">
+            <div class="ci"><span class="label">Camera</span><span class="cnum">02</span></div>
+            <h4>Live Feed &amp; Capture</h4>
+            <p>A live monitor feed for the viewer, plus high-quality moment-capture for keeping the memories.</p>
+          </div>
+          <div class="c" style="flex: 1; justify-content: center;">
+            <div class="ci"><span class="label">Rotating Head</span><span class="cnum">03</span></div>
+            <h4>Gaze &amp; Tracking</h4>
+            <p>The head rotates left and right to simulate audience gaze and camera tracking, while enabling interaction with on-site fans.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 03 COMPONENTS -->
+    <!-- 03 PROTOTYPE & DYNAMICS -->
     <section class="blk">
       <div class="blk-grid">
-        <div class="bn reveal">03</div>
+        <div class="bn reveal">02</div>
         <div>
-          <div class="bh reveal">Key <span class="serif-it">Components</span></div>
-          <p class="blk-lead reveal">Three parts turn an empty seat into a two-way window between the remote fan and the live crowd.</p>
+          <div class="bh reveal">Conceptual <span class="serif-it">Prototype</span></div>
+          <p class="blk-lead reveal" style="max-width: 70ch;">We brought CATTY to life by building a 1:1 conceptual prototype, enabling us to test key interactions and validate its physical form and scale.</p>
         </div>
       </div>
-      <div class="comp-grid">
-        <div class="c reveal" data-reveal-group="comp">
-          <div class="ci"><span class="label">Screen</span><span class="cnum">01</span></div>
-          <h4>Viewer Face &amp; Emotion Display</h4>
-          <p>Shows the viewer's face and real-time emotional expressions, and can display remote fans' cheering messages live.</p>
-        </div>
-        <div class="c reveal" data-reveal-group="comp">
-          <div class="ci"><span class="label">Camera</span><span class="cnum">02</span></div>
-          <h4>Live Feed &amp; Capture</h4>
-          <p>A live monitor feed for the viewer, plus high-quality moment-capture for keeping the memories.</p>
-        </div>
-        <div class="c reveal" data-reveal-group="comp">
-          <div class="ci"><span class="label">Rotating Head</span><span class="cnum">03</span></div>
-          <h4>Gaze &amp; Tracking</h4>
-          <p>The head rotates left and right to simulate audience gaze and camera tracking, while enabling interaction with on-site fans.</p>
+      <div class="blk-body reveal">
+        <div class="video-slot">
+          <video class="vposter" src="assets/media/dp3-demo.mp4"></video>
+          <div class="vover">
+            <div class="play"></div>
+            <div class="vcap">Interaction DEMO</div>
+          </div>
         </div>
       </div>
     </section>
@@ -167,18 +207,43 @@
     <!-- 04 SCENARIOS -->
     <section class="blk">
       <div class="blk-grid">
-        <div class="bn reveal">04</div>
+        <div class="bn reveal">03</div>
         <div>
           <div class="bh reveal">Scenarios</div>
-          <p class="blk-lead reveal">The proxy in context — reacting, cheering, and capturing moments from CATTY.</p>
+          <p class="blk-lead reveal" style="max-width: 70ch;">See how CATTY bridges the physical gap, transforming remote fans from passive viewers into active participants within the live crowd.</p>
         </div>
       </div>
-      <div class="blk-body gallery">
-        <div class="frame big reveal" data-reveal-group="gal"><img src="assets/img/dp3-scn-1.png" alt="Concert robot scenario 1" /></div>
-        <div class="frame reveal" data-reveal-group="gal"><img src="assets/img/dp3-fan.png" alt="Concert robot scenario 2" /></div>
-        <div class="frame reveal" data-reveal-group="gal"><img src="assets/img/dp3-scn-3.png" alt="Concert robot scenario 3" /></div>
-        <div class="frame reveal" data-reveal-group="gal"><img src="assets/img/dp3-scn-2.png" alt="Concert robot scenario 4" /></div>
-        <div class="frame reveal" data-reveal-group="gal"><img src="assets/img/dp3-scn-4.png" alt="Concert robot scenario 5" /></div>
+      
+      <div class="blk-body" style="margin-top: clamp(40px, 6vh, 80px); margin-bottom: clamp(24px, 4vh, 48px);">
+        <div class="reveal">
+          <h4 style="font-size: clamp(20px, 2vw, 24px); font-weight: 500; margin-bottom: 16px; color: var(--accent); font-style: italic;">Beyond Passive Viewing</h4>
+          <p style="font-size: clamp(16px, 1.4vw, 19px); color: var(--ink-soft); line-height: 1.6; text-wrap: pretty;">Instead of just watching a livestream alone at home, remote fans can use the robot's lights as a virtual lightstick, display supportive messages on the screen, and physically "look around" to interact with the on-site fans sitting next to them. This transforms passive watching into a shared, two-way emotional experience.</p>
+        </div>
+      </div>
+
+      <div class="blk-body gallery" style="margin-top: 0;">
+        <div class="g-item reveal" data-reveal-group="gal">
+          <div class="frame"><img src="assets/img/dp3-fan.png" alt="Concert robot scenario 2" /></div>
+          <div class="cap">On-site fans can interact and wave directly at CATTY, sharing the excitement.</div>
+        </div>
+        <div class="g-item reveal" data-reveal-group="gal">
+          <div class="frame"><img src="assets/img/dp3-scn-3.png" alt="Concert robot scenario 3" /></div>
+          <div class="cap">Performers on stage can make direct eye contact with the remote fan.</div>
+        </div>
+        <div class="g-item reveal" data-reveal-group="gal">
+          <div class="frame"><img src="assets/img/dp3-scn-4.png" alt="Concert robot scenario 5" /></div>
+          <div class="cap">CATTY will sit seamlessly beside other audiences, creating a natural physical presence that bridges the gap between remote fans and the live crowd.</div>
+        </div>
+      </div>
+
+      <div class="blk-body" style="margin-top: clamp(60px, 8vh, 100px); text-align: center;">
+        <div class="reveal">
+          <p style="font-size: 16px; color: var(--ink-soft); margin-bottom: 20px;">Ready to see it all come together?</p>
+          <a href="#intro-video" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--accent); color: var(--paper); text-decoration: none; border-radius: 40px; font-weight: 500; letter-spacing: 0.02em; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Watch Functional Demo
+          </a>
+        </div>
       </div>
     </section>
 

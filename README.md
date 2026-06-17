@@ -4,6 +4,11 @@ This is the portfolio website of Group 8, featuring Robot and AI interaction des
 
 Take a look 👀 : https://tingyun1015.github.io/Robot_Design_Portfolio/index.html
 
----
 
+## People
+
+- Team members: Yu-Hsin Su, Yi-Hung Hsieh, and Ting-Yun Cheng.
+- Instructor: Professor Yo-Yo Hou.
+
+---
 *This website was developed in collaboration with Claude Design.*
