@@ -102,7 +102,7 @@
     </header>
 
     <!-- VIDEO -->
-    <section class="blk vsection">
+    <section id="hero-video" class="blk vsection" style="scroll-margin-top: 60px;">
       <div class="blk-grid">
         <div class="bn reveal">▶</div>
         <h2 class="bh reveal">Watch Boreum <span class="serif-it">perform</span></h2>
@@ -120,55 +120,86 @@
       </div>
     </section>
 
-    <!-- 01 MOTIVATION -->
+    <!-- 01 THE DESIGN CHALLENGE -->
     <section class="blk">
       <div class="blk-grid">
         <div class="bn reveal">01</div>
         <div>
-          <div class="bh reveal">Motivation &amp; <span class="serif-it">Overview</span></div>
-          <p class="blk-lead reveal">A creative robot designed to perform to music, capturing the energetic presence of a pop idol.</p>
+          <div class="bh reveal">The Design <span class="serif-it">Challenge</span></div>
+          <p class="blk-lead reveal">Bridging the gap between cold machinery and emotional expression through choreographic design.</p>
         </div>
       </div>
-      <div class="blk-body twoup">
-        <div class="spec reveal" data-reveal-group="g1" style="grid-template-columns:1fr;">
-          <div class="cell">
-            <span class="label">Project Goals</span>
-            <ul>
-              <li>Create a robot that can move and play music.</li>
-              <li>Strengthen hands-on making skills.</li>
-              <li>Combine Arduino control with handcrafted lighting and sound effects.</li>
-              <li>Present feedback through appearance and sound to boost creativity.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="spec reveal" data-reveal-group="g1" style="grid-template-columns:1fr;">
-          <div class="cell">
-            <span class="label">Features</span>
-            <ul>
-              <li>Simple Arduino circuit.</li>
-              <li>Easy for beginners to assemble and program.</li>
-              <li>Includes sound, movement, and light effects.</li>
-            </ul>
-          </div>
+      <div class="blk-body" style="margin-top: clamp(60px, 8vh, 100px); text-align: center; max-width: 75ch; margin-left: auto; margin-right: auto; padding-bottom: 20px;">
+        <div class="reveal">
+          <div style="width: 40px; height: 2px; background: var(--accent); margin: 0 auto 32px auto;"></div>
+          <p style="font-size: clamp(20px,2vw,28px); color: var(--ink); line-height: 1.4; text-wrap: balance; font-weight: 400;">Our goal is to transform rigid hardware components into an expressive, emotional character.</p>
+          <p style="font-size: clamp(16px,1.4vw,19px); color: var(--ink-soft); line-height: 1.6; text-wrap: pretty; margin-top:24px;">We aim to create an <span style="color: var(--accent); font-weight: 600;">idol-like performing robot</span> that moves in sync with music, seamlessly synchronizing lighting, sound, and servomotor movements to mimic the captivating energy of a live performance.</p>
+          <div style="width: 40px; height: 2px; background: var(--accent); margin: 32px auto 0 auto;"></div>
         </div>
       </div>
     </section>
 
-    <!-- 02 SYSTEM & PROCESS -->
+    <!-- 02 IDEATION & SKETCHES -->
     <section class="blk">
       <div class="blk-grid">
         <div class="bn reveal">02</div>
+        <div>
+          <div class="bh reveal">Concept <span class="serif-it">Exploration</span></div>
+          <p class="blk-lead reveal">Before arriving at the final design, we explored various shapes and character personas through rapid sketching and physical mockups.</p>
+        </div>
+      </div>
+
+      <div class="blk-body feature" style="grid-template-columns: 1fr; gap: 40px;">
+        <div class="ftext reveal" style="max-width: 70ch;">
+          <div class="kref">Ideation Process</div>
+          <h3>Iterating the <span class="serif-it">character</span></h3>
+          </div>
+        <div class="frame fimg reveal" style="aspect-ratio: auto; border: none; background: transparent;">
+          <img src="assets/img/dp1-iteration.png" alt="" style="object-fit: contain; width: 100%;" />
+        </div>
+        <div class="ftext reveal">
+          <p>During the early phases, we brainstormed different forms and built prototypes to test how different proportions affected the perceived "personality" of the robot.</p>
+          <p style="margin-top:12px;">Even though these early concepts didn't make it to the final build, they were crucial in helping us understand the importance of curves, scale, and balance in character design.</p>
+        </div>
+      </div>
+
+      <div class="blk-body feature flip" style="margin-top: clamp(60px, 8vh, 100px);">
+        <div class="ftext reveal">
+          <div class="kref">Finalizing the Form</div>
+          <h3>The birth of <span class="serif-it">Boreum</span></h3>
+          <p>After experimenting with various proportions, we converged on a rabbit-inspired design for Boreum. Its soft curves and distinct posture create an inherently friendly and idol-like presence.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 1.5vw, 20px);">
+          <div class="frame reveal" data-reveal-group="bmedia" style="aspect-ratio: 1;"><img src="assets/img/dp1-img1.png" /></div>
+          <div class="frame reveal" data-reveal-group="bmedia" style="aspect-ratio: 1;"><img src="assets/img/dp1-img2.png" /></div>
+          <div class="frame reveal" data-reveal-group="bmedia" style="aspect-ratio: 1;"><img src="assets/img/dp1-img3.png" /></div>
+          <div class="frame reveal" data-reveal-group="bmedia" style="aspect-ratio: 1;"><img src="assets/img/dp1-img4.png" /></div>
+        </div>
+      </div>
+
+      <div class="blk-body feature" style="margin-top: clamp(60px, 8vh, 100px);">
+        <div class="ftext reveal">
+          <div class="kref">Movement Design</div>
+          <h3>Bringing lyrics to <span class="serif-it">life</span></h3>
+          <p>To deliver a true idol performance, we choreographed the robot's motion to reflect the song's rhythmic changes, utilizing dynamic spins and directional movements to match the beat.</p>
+          <p style="margin-top:12px;">Drawing inspiration from the lyrics, <i>"glowin'"</i> and <i>"That's who we're born to be"</i>, we designed lighting sequences that visually amplify the emotional with the song.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr; gap: clamp(12px, 1.5vw, 20px);">
+          <div class="frame reveal" data-reveal-group="rmedia" style="aspect-ratio: 3/1;"><img src="assets/img/dp1-light1.png" style="object-fit: cover; width: 100%; height: 100%;" /></div>
+          <div class="frame reveal" data-reveal-group="rmedia" style="aspect-ratio: 3/1;"><img src="assets/img/dp1-light2.png" style="object-fit: cover; width: 100%; height: 100%;" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 SYSTEM & PROCESS -->
+    <section class="blk">
+      <div class="blk-grid">
+        <div class="bn reveal">03</div>
         <div>
           <div class="bh reveal">System Structure &amp; <span class="serif-it">Production</span></div>
           <p class="blk-lead reveal">A single Arduino board drives both the lighting and the motion, sequencing them into one designated performance.</p>
         </div>
       </div>
-
-      <div class="blk-body media-row media-row-2">
-        <div class="frame reveal" data-reveal-group="rmedia"><img src="assets/img/dp1-light1.png" /></div>
-        <div class="frame reveal" data-reveal-group="rmedia"><img src="assets/img/dp1-light2.png" /></div>
-      </div>
-
 
       <div class="blk-body flow">
         <div class="node reveal" data-reveal-group="flow">
@@ -191,77 +222,33 @@
       <div class="blk-body steps">
         <div class="step reveal" data-reveal-group="steps">
           <div class="sn">1</div>
-          <h4>Chassis Assembly</h4>
-          <p>Assemble the car body with Arduino and related parts to complete the base structure.</p>
+          <h4>Hardware Architecture</h4>
+          <p>Prototyping the kinetic foundation and ensuring structural stability for dynamic movements.</p>
         </div>
         <div class="step reveal" data-reveal-group="steps">
           <div class="sn">2</div>
-          <h4>Lighting Setup</h4>
-          <p>Install LED lights and tune the glowing effects to the needs of the performance.</p>
+          <h4>Sensory Integration</h4>
+          <p>Mapping sound triggers to lighting states to create a cohesive, multi-sensory experience.</p>
         </div>
         <div class="step reveal" data-reveal-group="steps">
           <div class="sn">3</div>
-          <h4>Exterior Creation</h4>
-          <p>Design and craft the outer appearance to match the chosen idol theme.</p>
+          <h4>Character Crafting</h4>
+          <p>Designing a soft, appealing exterior to bridge the gap between machine and performer.</p>
         </div>
         <div class="step reveal" data-reveal-group="steps">
           <div class="sn">4</div>
-          <h4>Program Integration</h4>
-          <p>Write and upload the program to link movement and lighting effects together.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 03 OUTCOME -->
-    <section class="blk">
-      <div class="blk-grid">
-        <div class="bn reveal">03</div>
-        <div>
-          <div class="bh reveal">Results &amp; <span class="serif-it">Reflection</span></div>
-          <p class="blk-lead reveal">A working idol robot that moves, lights up and plays music — and a lot learned about bridging electronics and craft.</p>
+          <h4>Interaction Tuning</h4>
+          <p>Fine-tuning the timing of the robot's spins and directional movements so they align perfectly with the song's rhythm.</p>
         </div>
       </div>
 
-      <div class="blk-body media-row media-row-4">
-        <div class="frame reveal" data-reveal-group="rmedia"><img src="assets/img/dp1-img1.png" /></div>
-        <div class="frame reveal" data-reveal-group="rmedia"><img src="assets/img/dp1-img2.png" /></div>
-        <div class="frame reveal" data-reveal-group="rmedia"><img src="assets/img/dp1-img3.png" /></div>
-        <div class="frame reveal" data-reveal-group="rmedia"><img src="assets/img/dp1-img4.png" /></div>
-      </div>
-
-      <div class="blk-body quad">
-        <div class="cell reveal" data-reveal-group="quad">
-          <span class="label">Final Outcome</span>
-          <ul>
-            <li>Built an Arduino robot</li>
-            <li>Added music and lights</li>
-            <li>Robot can move and turn</li>
-            <li>Combined tech and design</li>
-          </ul>
-        </div>
-        <div class="cell reveal" data-reveal-group="quad">
-          <span class="label">Learning Gains</span>
-          <ul>
-            <li>Basic Arduino coding</li>
-            <li>Circuit &amp; component integration</li>
-            <li>Handmade design skills</li>
-          </ul>
-        </div>
-        <div class="cell reveal" data-reveal-group="quad">
-          <span class="label">Challenges</span>
-          <ul>
-            <li>Combining the look with the electronics</li>
-            <li>Adjusting balance and stability</li>
-            <li>Many rounds of testing lights &amp; movement</li>
-          </ul>
-        </div>
-        <div class="cell reveal" data-reveal-group="quad">
-          <span class="label">Future Directions</span>
-          <ul>
-            <li>Add more light modes</li>
-            <li>Make movement smoother</li>
-            <li>Add more interactive features</li>
-          </ul>
+      <div class="blk-body" style="margin-top: clamp(60px, 8vh, 100px); text-align: center;">
+        <div class="reveal">
+          <p style="font-size: 16px; color: var(--ink-soft); margin-bottom: 20px;">Ready to see it all come together?</p>
+          <a href="#hero-video" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; background: var(--accent); color: var(--paper); text-decoration: none; border-radius: 40px; font-weight: 500; letter-spacing: 0.02em; font-size: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Re-watch Performance
+          </a>
         </div>
       </div>
     </section>
